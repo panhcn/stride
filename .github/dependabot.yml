@@ -1,0 +1,52 @@
+version: 2
+updates:
+  # 🔧 Rails backend dependencies (Bundler)
+  - package-ecosystem: "bundler"
+    directory: "/server"
+    schedule:
+      interval: "weekly"         # weekly to avoid PR spam
+      day: "monday"
+      time: "07:00"
+      timezone: "America/Los_Angeles"
+    allow:
+      - dependency-type: "direct"
+    labels:
+      - "dependencies"
+      - "ruby"
+      - "server"
+    assignees:
+      - your-github-username
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+
+  # ⚛️ React frontend dependencies (NPM or Yarn)
+  - package-ecosystem: "npm"
+    directory: "/client"
+    schedule:
+      interval: "daily"          # daily for rapid JS patches
+      time: "07:00"
+      timezone: "America/Los_Angeles"
+    allow:
+      - dependency-type: "direct"
+    ignore:
+      - dependency-name: "vite"
+        versions: ["^5"]         # prevent upgrades if you’re not ready
+    labels:
+      - "dependencies"
+      - "javascript"
+      - "client"
+    assignees:
+      - your-github-username
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+
+  # 🛡️ GitHub Actions workflow dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"               # Always root of repo
+    schedule:
+      interval: "weekly"
+    labels:
+      - "ci"
+      - "github-actions"
+    assignees:
+      - your-github-username
