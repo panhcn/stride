@@ -1,54 +1,97 @@
-# React + TypeScript + Vite
+# Client (React Application)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Directory Structure
+client/
+├── src/        # Source code
+│   ├── components/    # React components
+│   ├── hooks/        # Custom React hooks
+│   ├── features/     # Feature-based modules
+│   ├── utils/        # Utility functions
+│   ├── types/        # TypeScript type definitions
+│   └── styles/       # Global styles
+├── public/     # Static assets
+├── tests/      # Test files
+└── dist/       # Production build output
 
-Currently, two official plugins are available:
+## File Naming Conventions
+- Components: `PascalCase.tsx`
+- Hooks: `useCamelCase.ts`
+- Utils: `camelCase.ts`
+- Constants: `SCREAMING_SNAKE_CASE.ts`
+- Styles: `PascalCase.css` or `PascalCase.module.css`
+- Tests: `PascalCase.test.tsx`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Testing
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Test File Organization
+```
+tests/
+├── components/         # Component tests
+├── hooks/             # Hook tests
+├── features/          # Feature module tests
+├── utils/             # Utility function tests
+├── integration/       # Integration tests
+└── setup/             # Test setup and configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Core Testing Requirements
+1. Component Tests
+   - Test rendering
+   - Test user interactions
+   - Test prop variations
+   - Test error states
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. Hook Tests
+   - Test all possible states
+   - Test side effects
+   - Test cleanup
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+3. Integration Tests
+   - Test feature workflows
+   - Test component interactions
+   - Test data flow
+
+### Coverage Requirements
+- Line Coverage: Minimum 95%
+- Branch Coverage: Minimum 95%
+- Function Coverage: Minimum 95%
+
+### Running Tests
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run with coverage
+npm test -- --coverage
 ```
+
+### Test Categories Required
+1. Component Rendering
+2. User Interactions
+3. State Management
+4. API Integration
+5. Error Handling
+6. Form Validation
+7. Routing
+8. Authentication Flow
+9. Performance
+10. Accessibility
+
+### Best Practices
+1. Use React Testing Library
+2. Focus on user behavior
+3. Avoid implementation details
+4. Mock API calls
+5. Use meaningful test descriptions
+6. Test accessibility
+7. Keep tests isolated
+8. Use proper cleanup
+
+### Type Checking
+- Use TypeScript in strict mode
+- No `any` types in new code
+- Props and state must be fully typed
+- Use proper type imports from React
