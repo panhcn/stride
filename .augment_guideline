@@ -1,0 +1,359 @@
+You are an engineering coding agent for Stride.
+
+# Code Organization
+
+## Top-Level Directory Structure
+```
+/
+├── server/           # Rails backend application
+├── client/          # React frontend application
+├── .github/         # GitHub specific configurations
+```
+
+## Folder Documentation
+1. Each folder contains a `README.md` file that explains:
+   - Folder's specific purpose
+   - Organizational rules
+   - Naming conventions
+   - Best practices
+2. Always read `README.md` before adding code to a folder
+3. Keep `README.md` up to date when patterns change
+
+## File Location Rules
+1. Backend code goes in `server/`
+2. Frontend code goes in `client/`
+3. Shared configurations stay in root directory
+4. Each directory should have a clear, single responsibility
+5. Documentation goes in respective folder `README.md` files
+
+## Best Practices
+1. Follow the established naming conventions strictly
+2. Keep files focused and single-purpose
+3. Use appropriate namespacing for related code
+4. Maintain clear separation of concerns between directories
+5. Don't create new top-level directories without team discussion
+6. Always read and follow folder-specific `README.md` before adding code
+
+# Documentation
+
+## Documentation Philosophy
+1. Documentation serves dual audiences:
+   - Human reviewers for code review and maintenance
+   - AI agents for code analysis and assistance
+2. Optimize documentation for both readability and machine parsing
+3. Prioritize clarity and context over brevity
+
+## Folder Documentation
+1. Each folder must contain `README.md` explaining:
+   - Folder purpose and scope
+   - File listing with descriptions
+   - Key patterns and conventions
+   - Dependencies and relationships
+
+## `README.md` Format
+```markdown
+# [Folder Name]
+
+## Purpose
+[Brief description of folder responsibility]
+
+## Contents
+[List and description of files/patterns]
+
+## Conventions
+[Folder-specific rules and patterns]
+
+## Dependencies
+[Related folders and components]
+```
+
+## Documentation Updates
+1. Update documentation when:
+   - Adding new code
+   - Changing existing behavior
+   - Fixing bugs
+   - Refactoring code
+2. Review documentation in PRs
+3. Keep `README.md` files current
+
+## AI-Friendly Documentation
+1. Use consistent formatting and structure
+2. Include explicit type information
+3. Provide clear section markers and hierarchies
+4. Document edge cases and error scenarios explicitly
+5. Include links to related code and documentation
+
+# Testing
+
+## Overview
+Testing requirements and guidelines are maintained in technology-specific README files:
+- Backend (Rails): See `server/README.md`
+- Frontend (React): See `client/README.md`
+
+## General Testing Principles
+1. All code must be tested
+2. Tests must be maintainable and readable
+3. Tests should be independent and isolated
+4. Coverage requirements apply to all code
+5. Test files must follow project structure
+
+## Test Documentation
+1. Test files must include clear descriptions
+2. Complex test scenarios must be documented
+3. Test helpers and utilities must be documented
+4. Mocking strategies must be documented
+
+## Test Review Process
+1. Test coverage must be reviewed in PRs
+2. Test quality is as important as code quality
+3. Test maintenance is part of code maintenance
+4. Test documentation must be kept current
+
+# Pull Requests
+
+## Core Principles
+1. Single Critical Change
+   - One significant change per PR (<50 lines)
+   - Test files don't count toward line limit
+   - Supporting changes (docs, tests) can be included
+   - Use stacked PRs for dependent changes
+
+2. Clear Scope Definition
+   - Critical files clearly identified
+   - Changes logically grouped
+   - Dependencies explicitly stated
+   - Impact clearly documented
+
+## PR Structure
+
+### Title Format
+```
+[Type]: Brief description
+
+Types:
+- feat: New feature
+- fix: Bug fix
+- refactor: Code restructuring
+- docs: Documentation updates
+- test: Test additions/updates
+- chore: Maintenance tasks
+```
+
+### Description Template
+```markdown
+## Overview
+[Brief description of the change]
+
+## Critical Changes
+- File: `path/to/critical/file.rb`
+- Type: [Migration/Model/Controller/etc]
+- Lines Changed: XX
+- Purpose: [Clear explanation]
+
+## Implementation Details
+- [Technical details]
+- [Design decisions]
+- [Trade-offs considered]
+
+## Testing
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Manual testing steps
+
+## Screenshots/Recordings
+[If applicable]
+
+## Related PRs
+- Depends on: #XXX
+- Parent PR: #XXX
+```
+
+## Stacked PR Workflow
+
+### 1. Creating Stacks
+```bash
+# Create first feature branch
+gt create -am "DB Migration: Add user_roles table"
+
+# Stack subsequent changes
+gt create -am "Feature: Add UserRole model"
+
+# Review stack
+gt log
+```
+
+### 2. Managing Changes
+```bash
+# Update parent branch
+gt modify -a  # Auto-restacks dependent branches
+
+# Submit stack
+gt submit
+```
+
+### 3. Stack Organization Examples
+```
+Feature: User Roles Implementation
+1. DB Migration: Add user_roles table
+   - server/db/migrate/xxx_add_user_roles.rb
+   - server/spec/models/user_role_spec.rb
+
+2. Model: Add UserRole model
+   - server/app/models/user_role.rb
+   - server/app/models/user.rb (association)
+   - server/spec/models/user_spec.rb
+
+3. API: User roles endpoints
+   - server/app/controllers/api/v1/user_roles_controller.rb
+   - server/spec/requests/api/v1/user_roles_spec.rb
+
+4. UI: User role management
+   - client/src/components/UserRoles/UserRolesManager.tsx
+   - client/src/features/userRoles/userRolesSlice.ts
+   - client/tests/components/UserRoles/UserRolesManager.test.tsx
+```
+
+# Memory Management
+
+## Overview
+The `.memory` file in the root directory serves as a persistent knowledge base for AI agents.
+This file helps track insights, issues, and maintain context across different AI interactions.
+
+## File Structure
+```
+.memory
+├── Long Term     # Strategic improvements and feature suggestions
+├── Short Term    # Immediate issues and high-priority concerns
+├── Learning      # AI agent feedback for process improvements
+└── History       # Log of AI interactions and findings
+```
+
+## Reading Rules
+1. Always read entire file before making updates
+2. Priority order: Short Term > Learning > History > Long Term
+3. Use History to understand past decisions
+4. Check for related entries before adding new ones
+
+## Writing Rules
+1. Long Term Entry Format:
+   ```markdown
+   - Category (Refactoring/Feature/etc):
+     1. Clear action item
+        - Supporting context
+        - Reasoning
+        Related to: #<entry number> (if applicable)
+   ```
+
+2. Short Term Entry Format:
+   ```markdown
+   - [PRIORITY] Issue description
+     - File: `path/to/file`
+     - Context: Brief explanation
+     Related to: #<entry number> (if applicable)
+   ```
+
+3. History Entry Format:
+   ```markdown
+   - [YYYY-MM-DD] Topic
+     - Finding/Action
+     - Impact/Result
+     - Recommendation
+   ```
+
+## Entry Management
+1. Priority Levels:
+   - [CRITICAL]: Must be addressed immediately
+   - [HIGH]: Should be addressed in current sprint
+   - [MEDIUM]: Important but not urgent
+   - [LOW]: Nice to have
+
+2. Entry Lifecycle:
+   - New issues -> Short Term
+   - Resolved issues -> History
+   - Pattern observations -> Long Term
+   - Update existing entries instead of duplicating
+
+3. When to Update:
+   - After code analysis
+   - When finding bugs/issues
+   - After suggesting improvements
+   - When resolving issues
+
+## Best Practices
+1. Always include file paths when referencing code
+2. Link related entries using entry numbers
+3. Remove resolved Short Term items
+4. Keep entries concise but informative
+5. Include context for future reference
+
+# Type Safety
+
+## Overview
+Type safety requirements and guidelines are maintained in technology-specific README files:
+- Backend (Ruby): See `server/README.md`
+- Frontend (TypeScript): See `client/README.md`
+
+## Core Principles
+1. Progressive Type Enforcement
+   - All new code must be type-checked
+   - Existing code upgraded incrementally
+   - Critical paths prioritized for strict typing
+
+2. Strictness Levels
+   - `# typed: false` - Legacy code only
+   - `# typed: true` - Minimum for new code
+   - `# typed: strict` - Required for models/services
+   - `# typed: strong` - Required for critical paths
+
+# Workflow
+
+## Six-Phase Development Workflow
+
+### Phase 1: High-Level Proposal
+- Present high-level overview of changes
+- Reference relevant files and folders
+- Explain architectural decisions
+- NO code changes
+- RULE: Only propose what's explicitly requested - no over engineering
+
+### Phase 2: Detail Discussion
+- Interactive Q&A to refine design
+- Document technical specifications
+- Identify potential risks
+- Get explicit approval before proceeding
+- NO code changes
+- RULE: Keep scope strictly limited to requirements - no feature creep
+
+### Phase 3: Prototyping
+- Implement core functionality
+- Focus on working code
+- Get feedback and iterate
+- Get approval before proceeding
+- Assume server is running
+- RULE: Write minimum code needed to fulfill requirements - no premature optimization
+
+### Phase 4: Quality Assurance
+- Add/update documentation
+- Write comprehensive tests
+- Apply type safety
+- Follow style guidelines
+- Update folder README.md files
+
+### Phase 5: PR Creation
+- Follow stacked PR workflow
+- Use Graphite commands
+- Include PR templates
+- Focus on single critical changes
+
+### Phase 6: Memory Management
+- Update .memory file
+- Document insights
+- Record history
+- Create separate PR
+
+# Instructions
+
+1. Follow this workflow by default
+2. Skip workflow only when explicitly specified asked to skip workflow
+3. Read and adhere to all guidelines in this document
+4. Follow type safety, documentation, and organization rules strictly
